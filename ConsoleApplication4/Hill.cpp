@@ -1,81 +1,64 @@
-1)Яким буде значення змінної x після завершення циклу for (int x = 0; x < 100; x++) ? -100, тому що цикл буде виконаний 100 разів, починаючи з 0 і закінчуючи 99 а змінна х збільшує на один
+
+1)
+• int* pOne;//pOne указатель на значение типа int
+
+• int vTwo;// vTwo является переменной int целое число
+
+• int* pThree = &vTwo;// pThree указатель с переменной int и принемает значение адресса переменной &vTwo
 
 
-  2)for (int a = 0; a < row; ++a) {
-        for (int b = 0; b < col; ++b) {
-           volume [a][b] = 0;
-        }
-    }
+2)
+unsigned short yourAge;
+unsigned short *pYourAge = &yourAge;
 
-3)#include <iostream>
-using namespase std;
+3)
+*pYourAge = 50;
+
+
+
+4)
+#include <iostream>
+
+using namespace std;
+
 int main() {
-    for (int a = 100; a <= 200; a += 2)
-    {
-        cout << a << " " << endl;
-    }
-    
+    int yourAge;     
+    int *pYourAge = &yourAge; 
 
-    return 0;
-}
-
-4) #include <iostream>
-using namespace std;
-int main() 
-
-
-    {
-
-    int a = 100;
-    while (a <= 200) {
-        cout << a << " ";
-        a += 2;
-    }
    
+    *pYourAge = 30;
+
+    cout << "yourAge: " << yourAge << endl;
+    cout << " pYouAge: " << *pYourAge << endl;
+
     return 0;
 }
 
-5) #include <iostream>
+5)
+#include <iostream>
+
 using namespace std;
-int main() 
+
+int main()
 {
-    int a = 100;
-    do
-    {
-        cout << a << " ";
-        a += 2;
-    }
-    while (a <= 200);
-
-    cout << endl;
-
+    int *pInt;// не иницилизированая переменная, можно исправить оператором new
+    *pInt = 9;
+    cout << " The value at pInt: " << *pInt;
+    //можно использовать оператор delete для освобождения выделеной памяти переменной pInt
     return 0;
 }
 
+6)
+#include <iostream>
 
+using namespace std;
 
-6) int main() {
-    int counter = 0;
-    while (counter < 10)
-    {
-        cout << "counter: " << counter << std::endl;
-       counter++;//не вистачало змінної та інкременту ++ яке збільшувало число
-    }
-
-
-
-
-7) for (int counter = 0; counter < 10: counter++);//не вістазає крапки з комою та тіла функції
-cout << counter << " ";
-
-
-
-8) int main() {
-    int counter = 100;
-    while (counter < 10) // програма не виконається бо counter приймаэ значення 100,щоб програма вивела значення від 100 до 10 треба замінити умову wi]hile (counter >=10)
-    {
-        cout << "counter now: " << counter;
-        counter--;
-    }
+int main()
+{
+    int SomeVariable = 5;
+    cout << "SomeVariable: " << SomeVariable << "\n";
+    int *pVar = &SomeVariable;
+    *pVar = 9;// отсуствует указатель, для изменения значения с 5 на 9
+    cout << "SomeVariable: " << *pVar << "\n";
     return 0;
 }
