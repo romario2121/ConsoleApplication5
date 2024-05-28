@@ -30,7 +30,7 @@ public:
 
  
     ~SimpleCircle() = default;
-    void setRadius(double r){}
+    void setRadius(double rad){}
  
     double getRadius() const { return Radius;}
 };
