@@ -1,153 +1,102 @@
 #include <iostream>
 using namespace std;
 
-int main()
- {
-    int number = 10; 
-    int *pnumber = &number; 
 
-    int &rnumberRef = number; 
-
-    cout << " variable: " << number << endl;
-    cout << " pnumber: " << *pnumber << endl;
-    cout << " rnumberRef: " << rnumberRef << endl;
-
-    *pnumber = 29;
-
-    cout << "variable: " << number << endl;
-    cout << " pnumber: " << *pnumber << endl;
-    cout << " rnumberRef: " << rnumberRef << endl;
-
- 
-    rnumberRef = 10;
-
-    cout << " variable: " << number << endl;
-    cout << " pnumber: " << *pnumber << endl;
-    cout << " rnumberRef: " << rnumberRef << endl;
-
-    return 0;
-
-}
-
-
-#include <iostream>
-using namespace std;
-int main() 
+class SimpleCircle
 {
-    const int *constNum = 0; 
-    int varOne = 6; 
-    constNum = &varOne; 
-
-    cout << " varOne: " << varOne << endl;
-    *constNum = 7; // constNum нельзя назначить уже на обьявленный объект
-
-    int varTwo = 10; 
-    constNum = &varTwo; 
-    cout << " varTwo: " << *constNum << endl;
-
-    return 0;
-}
-
-#include <iostream>
-using namespace std;
-
-int main()
- {
-
- short *pwanderingPointer = new short;
-*pwanderingPointer = 10;
-cout <<" PwanderingPoint " << *pwanderingPointer <<endl;
-delete pwanderingPointer;
-
-long *plong = new long;
-*plong = 90000;
-cout << "plong " << *plong << endl;
-
-*pwanderingPointer = 20;
-
-cout <<" PwanderingPoint " << *pwanderingPointer <<endl;
-cout <<" plong " << *plong <<endl;
-delete plong;
-
-    return 0;
-}
-
-#include <iostream>
-using namespace std;
-
-int main() {
-    short *pwanderingPointer = new short;
-    *pwanderingPointer = 10;
-    cout << "PwanderingPoint " << *pwanderingPointer << endl;
-    delete pwanderingPointer;
-    pwanderingPointer = nullptr; 
-
-    long *plong = new long;
-    *plong = 90000;
-    cout << "plong " << *plong << endl;
-
-    if (pwanderingPointer != nullptr)
-     {
-        *pwanderingPointer = 20; 
-        cout << "PwanderingPoint " << *pwanderingPointer << endl;
-    } 
-    else
-     {
-        cout << "PwanderingPointer nullptr" << endl;
-     }
-
-    cout << "plong " << *plong << endl;
-    delete plong;
-
-    return 0;
-}
-
-#include <iostream>
-
-int main()
- {
-    while (true)
-     {
-        int *ptr = new int; 
-       
-       delete ptr;
-     }
-
-    return 0;
-}
-
-
-
-
-
-#include <iostream>
-
-using namespace std;
-
-class Cat
-{
-public:
-    Cat(int age)  {itsAge = age;}
-    ~Cat() {}
-    int GetAge() const { return itsAge; }
-
 private:
-    int itsAge;
+
+	double radius;
+
+public:
+	SimpleCircle();
+	~SimpleCircle();
+	void setRadius(double rad);
+	double getRadius() const { return radius; }
+
 };
 
-Cat &MakeCat(int age);
+#include <iostream>
+using namespace std;
 
-int main()
+class SimpleCircle 
 {
-    int age = 7;
-    Cat &Boots = MakeCat(age);// объявляем ссылку Boots которая  указывает на объект тип Cat
-    cout << "Boots is: " << Boots.GetAge() << " years old" << endl;
-    delete &Boots;// освобождение динамической памяти в main для того чтоб не было утечки памяти!
+private:
+    double Radius;
+
+public:
+
+    SimpleCircle() : Radius(5) {}
+
+ 
+    ~SimpleCircle() = default;
+    void setRadius(double r){}
+ 
+    double getRadius() const { return Radius;}
+};
+
+int main() 
+{
+
+    SimpleCircle circle;
+
+    cout << "Radius Circle: " << circle.getRadius() << endl;
+
     return 0;
 }
 
-Cat &MakeCat(int age)
+
+#include <iostream>
+using namespace std;
+
+class SimpleCircle
 {
-    Cat *pCat = new Cat(age);
-    return *pCat;
+private:
+    double itsRadius;
+
+public:
+   
+    SimpleCircle() : itsRadius(5) {}
+    SimpleCircle(double radius) 
+    {
+        if (radius >= 0) 
+        {
+            itsRadius = radius;
+        }
+        else
+        {
+            cout << "Radius cannot be seen!" << endl;
+            itsRadius = 0; 
+        }
+    }
+
+   
+    ~SimpleCircle() = default;
+
+    
+    void setRadius(double rad) 
+    {
+        if (rad >= 0) {
+            itsRadius = rad;
+        }
+        else
+        {
+            cout << "Radius cannot be seen!" << endl;
+        }
+    }
+
+    
+    double getRadius() const { return itsRadius;}
+};
+
+int main()
+{
+
+    SimpleCircle circle1;
+    cout << "Radius circle default: " << circle1.getRadius() << endl;
+
+    SimpleCircle circle2(17.0);
+    cout << "Radius circle parameter: " << circle2.getRadius() << endl;
+
+    return 0;
 }
