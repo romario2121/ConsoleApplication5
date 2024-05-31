@@ -1,102 +1,289 @@
-#include <iostream>
-using namespace std;
-
-
-class SimpleCircle
-{
-private:
-
-	double radius;
-
-public:
-	SimpleCircle();
-	~SimpleCircle();
-	void setRadius(double rad);
-	double getRadius() const { return radius; }
-
-};
-
-#include <iostream>
-using namespace std;
+include <iostream>
 
 class SimpleCircle 
 {
 private:
-    double Radius;
+    int itsRadius;
 
 public:
+    SimpleCircle(int rad = 0) : itsRadius (rad) {}
+    SimpleCircle& operator++() 
+    {
+        itsRadius++;
+        return *this;
+    }
 
-    SimpleCircle() : Radius(5) {}
+    SimpleCircle operator++(int) 
+    {
+        SimpleCircle temp = *this;
+        itsRadius++;
+        return temp;
+    }
 
- 
-    ~SimpleCircle() = default;
-    void setRadius(double rad){}
- 
-    double getRadius() const { return Radius;}
+    int getRadius() const
+    {
+        return itsRadius;
+    }
 };
 
-int main() 
-{
-
-    SimpleCircle circle;
-
-    cout << "Radius Circle: " << circle.getRadius() << endl;
-
-    return 0;
-}
-
-
+///////////////////////////////////////////////////////////////////
 #include <iostream>
-using namespace std;
+
+class SimpleCircle 
+{
+private:
+    int* itsRadius;
+
+public:
+    SimpleCircle(int rad = 0)
+    {
+        itsRadius = new int(rad);
+    }
+
+  
+    SimpleCircle(const SimpleCircle& other)
+    {
+        itsRadius = new int(*other.itsRadius);
+    }
+    ~SimpleCircle() {
+        delete itsRadius;
+    }
+
+    
+    SimpleCircle& operator=(const SimpleCircle& other)
+    {
+        if (this != &other) {
+            *itsRadius = *other.itsRadius;
+        }
+        return *this;
+    }
+
+   
+    SimpleCircle& operator++()
+    {
+        ++(*itsRadius);
+        return *this;
+    }
+
+    SimpleCircle operator++(int) 
+    {
+        SimpleCircle temp(*this);
+        ++(*itsRadius);
+        return temp;
+    }
+
+    int getRadius() const 
+    {
+        return *itsRadius;
+    }
+};
+
+/////////////////////////////////////////////////////////////////////
+#include <iostream>
 
 class SimpleCircle
 {
 private:
-    double itsRadius;
+    int* itsRadius;
 
 public:
-   
-    SimpleCircle() : itsRadius(5) {}
-    SimpleCircle(double radius) 
+    
+    SimpleCircle(int rad = 0) : itsRadius(new int(rad)) {}
+
+    SimpleCircle(const SimpleCircle& other) : itsRadius(new int(*other.itsRadius)) {}
+    ~SimpleCircle() 
     {
-        if (radius >= 0) 
-        {
-            itsRadius = radius;
+        delete itsRadius;
+    }
+
+    SimpleCircle& operator=(const SimpleCircle& other)
+    {
+        if (this != &other) {
+            *itsRadius = *other.itsRadius;
         }
-        else
-        {
-            cout << "Radius cannot be seen!" << endl;
-            itsRadius = 0; 
-        }
+        return *this;
+    }
+
+    SimpleCircle& operator++() 
+    {
+        ++(*itsRadius);
+        return *this;
     }
 
    
-    ~SimpleCircle() = default;
-
-    
-    void setRadius(double rad) 
+    SimpleCircle operator++(int)
     {
-        if (rad >= 0) {
-            itsRadius = rad;
-        }
-        else
-        {
-            cout << "Radius cannot be seen!" << endl;
-        }
+        SimpleCircle temp(*this);
+        ++(*itsRadius);
+        return temp;
     }
 
-    
-    double getRadius() const { return itsRadius;}
+    int getRadius() const
+    {
+        return *itsRadius;
+    }
 };
 
-int main()
+/////////////////////////////////////////////////////////////////////////////////
+#include <iostream>
+
+class SimpleCircle 
 {
+private:
+    int* itsRadius;
 
+public:
+  
+    SimpleCircle(int r = 0) : itsRadius(new int(r)) {}
+
+   
+    SimpleCircle(const SimpleCircle& other) : itsRadius(new int(*other.itsRadius)) {}
+    ~SimpleCircle()
+    {
+        delete itsRadius;
+    }
+
+    SimpleCircle& operator=(const SimpleCircle& other) 
+    {
+        if (this != &other) {
+            *itsRadius = *other.itsRadius;
+        }
+        return *this;
+    }
+
+   
+    SimpleCircle& operator++() 
+    {
+        ++(*itsRadius);
+        return *this;
+    }
+
+    SimpleCircle operator++(int) 
+    {
+        SimpleCircle temp(*this);
+        ++(*itsRadius);
+        return temp;
+    }
+
+    int getRadius() const
+    {
+        return *itsRadius;
+    }
+};
+
+//////////////////////////////////////////////////////////////////////////////////
+#include <iostream>
+using namespace std;
+class SimpleCircle 
+{
+private:
+    int radius;
+
+public:
+    
+    SimpleCircle(int rad = 0) : radius(rad) {}
+
+    
+    SimpleCircle& operator++() 
+    {
+        ++radius;
+        return *this;
+    }
+
+   
+    SimpleCircle operator++(int)
+    {
+        SimpleCircle temp(*this);
+        ++radius;
+        return temp;
+    }
+
+    int getRadius() const
+    {
+        return radius;
+    }
+};
+
+int main() {
+    
     SimpleCircle circle1;
-    cout << "Radius circle default: " << circle1.getRadius() << endl;
+    SimpleCircle circle2(9); 
 
-    SimpleCircle circle2(17.0);
-    cout << "Radius circle parameter: " << circle2.getRadius() << endl;
+    ++circle1;
+    circle2++;
+    cout << "Object value circle1: " << circle1.getRadius() << endl;
+    cout << "Object value circle2: " << circle2.getRadius() << endl;
+
+    circle1 = circle2;
+    cout << "After/Before circle2 ... circle1:" << endl;
+    cout << "Object value circle1: " << circle1.getRadius() << endl;
+    cout << "Object value circle2: " << circle2.getRadius() << endl;
 
     return 0;
 }
+
+////////////////////////////////////////////////////////////////////////////////////
+
+SQUARE SQUARE::operator=(const SQUARE &rhs). Тип который возвращает
+(SQUARE), должен записан только в одном значении - Square Square::operator  = (const Square &rhs).
+
+
+SQUARE SQUARE::operator=(const SQUARE& rhs)/
+{
+    itsSide = new int;
+    *itsSide = rhs.GetSide();
+    return *this:// ";"
+}
+
+
+////////////////////////////////////////////////////////////////////////
+VeryShort VeryShort::operator+(const VeryShort& rhs)
+{
+    itsVal += rhs.GetItsVal();//Оператор +  добавления объектов должен возвращать новый объект, представляющий сумму двух операндов.
+    return *this;
+}
+
+#include <iostream>
+
+class Shape
+{
+public:
+    virtual void draw() const = 0;
+    virtual double area() const = 0;
+};
+/// ////////////
+
+class Rectangle : public Shape 
+{
+protected:
+    double width;
+    double height;
+
+public:
+    Rectangle(double width = 0, double height = 0) : width(width), height(height) {}
+
+    void draw() const override {}
+   
+  double area() const override 
+    {
+        return width * height;
+    }
+};
+
+class Square : public Rectangle
+{
+public:
+    Square(double side) : Rectangle(side, side) {}
+
+    void draw() const override {}
+};
+
+///////////////////////////
+
+class Square : public Rectangle
+{
+public:
+   
+  Square(double side) : Rectangle(side, side) {}
+
+};
