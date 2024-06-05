@@ -1,289 +1,74 @@
-include <iostream>
-
-class SimpleCircle 
-{
-private:
-    int itsRadius;
-
-public:
-    SimpleCircle(int rad = 0) : itsRadius (rad) {}
-    SimpleCircle& operator++() 
-    {
-        itsRadius++;
-        return *this;
-    }
-
-    SimpleCircle operator++(int) 
-    {
-        SimpleCircle temp = *this;
-        itsRadius++;
-        return temp;
-    }
-
-    int getRadius() const
-    {
-        return itsRadius;
-    }
-};
-
-///////////////////////////////////////////////////////////////////
-#include <iostream>
-
-class SimpleCircle 
-{
-private:
-    int* itsRadius;
-
-public:
-    SimpleCircle(int rad = 0)
-    {
-        itsRadius = new int(rad);
-    }
-
-  
-    SimpleCircle(const SimpleCircle& other)
-    {
-        itsRadius = new int(*other.itsRadius);
-    }
-    ~SimpleCircle() {
-        delete itsRadius;
-    }
-
-    
-    SimpleCircle& operator=(const SimpleCircle& other)
-    {
-        if (this != &other) {
-            *itsRadius = *other.itsRadius;
-        }
-        return *this;
-    }
-
-   
-    SimpleCircle& operator++()
-    {
-        ++(*itsRadius);
-        return *this;
-    }
-
-    SimpleCircle operator++(int) 
-    {
-        SimpleCircle temp(*this);
-        ++(*itsRadius);
-        return temp;
-    }
-
-    int getRadius() const 
-    {
-        return *itsRadius;
-    }
-};
-
-/////////////////////////////////////////////////////////////////////
-#include <iostream>
-
-class SimpleCircle
-{
-private:
-    int* itsRadius;
-
-public:
-    
-    SimpleCircle(int rad = 0) : itsRadius(new int(rad)) {}
-
-    SimpleCircle(const SimpleCircle& other) : itsRadius(new int(*other.itsRadius)) {}
-    ~SimpleCircle() 
-    {
-        delete itsRadius;
-    }
-
-    SimpleCircle& operator=(const SimpleCircle& other)
-    {
-        if (this != &other) {
-            *itsRadius = *other.itsRadius;
-        }
-        return *this;
-    }
-
-    SimpleCircle& operator++() 
-    {
-        ++(*itsRadius);
-        return *this;
-    }
-
-   
-    SimpleCircle operator++(int)
-    {
-        SimpleCircle temp(*this);
-        ++(*itsRadius);
-        return temp;
-    }
-
-    int getRadius() const
-    {
-        return *itsRadius;
-    }
-};
-
-/////////////////////////////////////////////////////////////////////////////////
-#include <iostream>
-
-class SimpleCircle 
-{
-private:
-    int* itsRadius;
-
-public:
-  
-    SimpleCircle(int r = 0) : itsRadius(new int(r)) {}
-
-   
-    SimpleCircle(const SimpleCircle& other) : itsRadius(new int(*other.itsRadius)) {}
-    ~SimpleCircle()
-    {
-        delete itsRadius;
-    }
-
-    SimpleCircle& operator=(const SimpleCircle& other) 
-    {
-        if (this != &other) {
-            *itsRadius = *other.itsRadius;
-        }
-        return *this;
-    }
-
-   
-    SimpleCircle& operator++() 
-    {
-        ++(*itsRadius);
-        return *this;
-    }
-
-    SimpleCircle operator++(int) 
-    {
-        SimpleCircle temp(*this);
-        ++(*itsRadius);
-        return temp;
-    }
-
-    int getRadius() const
-    {
-        return *itsRadius;
-    }
-};
-
-//////////////////////////////////////////////////////////////////////////////////
 #include <iostream>
 using namespace std;
-class SimpleCircle 
+
+class Shape 
 {
-private:
-    int radius;
-
 public:
-    
-    SimpleCircle(int rad = 0) : radius(rad) {}
+    virtual ~Shape() = default; 
+    virtual Shape* cop() const = 0; 
+};
 
-    
-    SimpleCircle& operator++() 
+
+class Rectangle : public Shape
+{
+public:
+    Rectangle(double width, double height) : width(width), height(height) {}
+    Rectangle* cop() const override
     {
-        ++radius;
-        return *this;
+        return new Rectangle(*this);
     }
 
-   
-    SimpleCircle operator++(int)
+    double getWidth() const 
     {
-        SimpleCircle temp(*this);
-        ++radius;
-        return temp;
+        return width;
     }
 
-    int getRadius() const
-    {
-        return radius;
+    double getHeight() const {
+        return height;
+    }
+
+    void setWidth(double width) {
+        this->width = width;
+    }
+
+    void setHeight(double height) {
+        this->height = height;
+    }
+
+protected:
+    double width;
+    double height;
+};
+
+class Square : public Rectangle {
+public:
+    Square(double sideLength) : Rectangle(sideLength, sideLength) {}
+
+    Square* cop() const override {
+        return new Square(*this);
+    }
+
+  
+    double getSideLength() const {
+        return width; 
+    }
+
+    void setSideLength(double sideLength) {
+        width = height = sideLength;
     }
 };
 
-int main() {
-    
-    SimpleCircle circle1;
-    SimpleCircle circle2(9); 
-
-    ++circle1;
-    circle2++;
-    cout << "Object value circle1: " << circle1.getRadius() << endl;
-    cout << "Object value circle2: " << circle2.getRadius() << endl;
-
-    circle1 = circle2;
-    cout << "After/Before circle2 ... circle1:" << endl;
-    cout << "Object value circle1: " << circle1.getRadius() << endl;
-    cout << "Object value circle2: " << circle2.getRadius() << endl;
-
-    return 0;
-}
-
-////////////////////////////////////////////////////////////////////////////////////
-
-SQUARE SQUARE::operator=(const SQUARE &rhs). Тип который возвращает
-(SQUARE), должен записан только в одном значении - Square Square::operator  = (const Square &rhs).
 
 
-SQUARE SQUARE::operator=(const SQUARE& rhs)/
-{
-    itsSide = new int;
-    *itsSide = rhs.GetSide();
-    return *this:// ";"
-}
+void SomeFunction(Shape);//не коректный вызов функции SomeFunction принимает тип Shape по уполчанию,копирует базовый класс,вся работа будет с Shape,но не с Rectangle 
+Shape* pRect = new Rectangle;// произойдет утечка памяти,нужно освобдить память с помощью delete pRect;
+SomeFunction(*pRect);
 
-
-////////////////////////////////////////////////////////////////////////
-VeryShort VeryShort::operator+(const VeryShort& rhs)
-{
-    itsVal += rhs.GetItsVal();//Оператор +  добавления объектов должен возвращать новый объект, представляющий сумму двух операндов.
-    return *this;
-}
-
-#include <iostream>
 
 class Shape
 {
 public:
-    virtual void draw() const = 0;
-    virtual double area() const = 0;
-};
-/// ////////////
-
-class Rectangle : public Shape 
-{
-protected:
-    double width;
-    double height;
-
-public:
-    Rectangle(double width = 0, double height = 0) : width(width), height(height) {}
-
-    void draw() const override {}
-   
-  double area() const override 
-    {
-        return width * height;
-    }
-};
-
-class Square : public Rectangle
-{
-public:
-    Square(double side) : Rectangle(side, side) {}
-
-    void draw() const override {}
-};
-
-///////////////////////////
-
-class Square : public Rectangle
-{
-public:
-   
-  Square(double side) : Rectangle(side, side) {}
-
+    Shape();
+    virtual ~Shape();
+    virtual Shape(const Shape&);//конструктор копирования не может быть virtual,конструктор копирования не определен
 };
