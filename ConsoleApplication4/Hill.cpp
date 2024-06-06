@@ -1,74 +1,69 @@
 #include <iostream>
 using namespace std;
-
-class Shape 
+int main()
 {
-public:
-    virtual ~Shape() = default; 
-    virtual Shape* cop() const = 0; 
-};
+
+    const int sizeArray = 10;
+    int array[sizeArray];
+    for (int a = 0; a < sizeArray; a++)
+    {
+
+        array[a] = 0;
+    }
 
 
-class Rectangle : public Shape
+    for (int a = 0; a < sizeArray; a++)
+    {
+        cout << array[a] << " ";
+    }
+    {
+        cout << endl;
+    }
+
+    return 0;
+}
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+#include <iostream>
+using namespace std;
+int main() 
 {
-public:
-    Rectangle(double width, double height) : width(width), height(height) {}
-    Rectangle* cop() const override
-    {
-        return new Rectangle(*this);
-    }
-
-    double getWidth() const 
-    {
-        return width;
-    }
-
-    double getHeight() const {
-        return height;
-    }
-
-    void setWidth(double width) {
-        this->width = width;
-    }
-
-    void setHeight(double height) {
-        this->height = height;
-    }
-
-protected:
-    double width;
-    double height;
-};
-
-class Square : public Rectangle {
-public:
-    Square(double sideLength) : Rectangle(sideLength, sideLength) {}
-
-    Square* cop() const override {
-        return new Square(*this);
-    }
-
   
-    double getSideLength() const {
-        return width; 
+    const int size = 3;
+    char field [size][size];
+
+    for (int i = 0; i < size; i++) 
+    {
+        for (int b = 0; b < size; b++) {}
+        
     }
 
-    void setSideLength(double sideLength) {
-        width = height = sideLength;
+    for (int i = 0; i < size; i++)
+    {
+        for (int b = 0; b < size; b++)
+        {
+            cout << field [i][b];
+            if (b < size -1) cout << "   |";
+        }
+        cout << endl;
+        if (i < size - 1) cout << "---|---|---" << endl;
     }
-};
+
+    return 0;
+}
+/////////////////////////////////////////////////////////////////////////
 
 
 
-void SomeFunction(Shape);//не коректный вызов функции SomeFunction принимает тип Shape по уполчанию,копирует базовый класс,вся работа будет с Shape,но не с Rectangle 
-Shape* pRect = new Rectangle;// произойдет утечка памяти,нужно освобдить память с помощью delete pRect;
-SomeFunction(*pRect);
+unsigned short SomeArray[5][4];
+for (int i = 0; i < 4; i++)//перепутанные индексы массива в цикле for 4-5, должно 5-4!
+    for (int j = 0; j < 5; j++)
+        SomeArray[i][j] = i + j;
+////////////////////////////////////////////////////////////////////////
+
+unsigned short SomeArray[5][4];
+for (int i = 0; i <= 5; i++)// выход за границы массива должно i < 5, размер массива должен соответствовать количеством значений в циклах
+for (int j = 0; j <= 4; j++)// выход за границы массива должно j < 4
+SomeArray[i][j] = 0;
 
 
-class Shape
-{
-public:
-    Shape();
-    virtual ~Shape();
-    virtual Shape(const Shape&);//конструктор копирования не может быть virtual,конструктор копирования не определен
-};
