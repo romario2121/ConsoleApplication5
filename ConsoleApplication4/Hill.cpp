@@ -1,38 +1,113 @@
-4.Оголосіть клас вузла Node, який підтримує цілі числа.
+#include <iostream>
+#include <string>
+using namespace std;
 
-class Node 
 
+class Rocket 
 {
-public:
-    int data; 
-    Node *next; 
 
-    Node(int d) : data(d), next(nullptr) {}
+private:
+    string rocketMod;
+
+public:
+    Rocket(const string& mod) : rocketMod(mod) {}
+
+    void launch() 
+    {
+        cout << "rocket launch!" << std::endl;
+    }
+
+    void setRocketModel(const string& mod)
+    {
+        rocketMod = mod;
+    }
+
+    string getRocketModel() const 
+    {
+        return rocketMod;
+    }
+};
+
+
+class Airplane 
+{
+private:
+    string airplaneMod;
+
+public:
+    Airplane(const string& mod) : airplaneMod(mod) {}
+
+    void fly() 
+    {
+        cout << "plane in the air!" << endl;
+    }
+
+    void setAirplaneMod(const string& mod) 
+    {
+        airplaneMod = mod;
+    }
+
+    string getAirplaneMod() const
+    {
+        return airplaneMod;
+    }
+};
+
+
+class JetPlane : public Rocket, public Airplane 
+{
+private:
+    string jetMod;
+
+public:
+    JetPlane(const string& rocketMod, const string& airplaneMod, const string& jetMod)
+      :Rocket(rocketMod), Airplane(airplaneMod), jetMod(jetMod) {}
+
+    void flyFast()
+    {
+        cout << "turbo plane!" << endl;
+    }
+
+    void setJetModel(const string& mod) 
+    {
+        jetMod = mod;
+    }
+
+    string getJetModel() const 
+    {
+        return jetMod;
+    }
 };
 
 
 
-
-3.Яким є останній символ у рядку "Сергій - хороший хлопець" ?// вопросительный знак
-
-
-
-2.Чи можна у зв'язаному списку використовувати індекси?
-/*
- Использовать нельзя, потому-что полагаются на поэтапном расположении элементов в памяти, 
-  связанные списки состоят из узлов, каждый из которых содержит данные и указатель на следующий узел. 
-
-*/
+#include <iostream>
+#include <string>
+using namespace std;
 
 
-Яка максимальна кількість елементів, які можна додати до зв'язаного списку?
-/*
-Все зависит от комьютера точнее системы! (можно вычислить приблизительно)
+class Boeing747 : public JetPlane 
+{
+private:
+    string boeingMod;
 
-1. Оперативеая память(имеет ограниченый обьем) 
-2.Архитектура системы! 32-бит, 64-бит
-3. компилятор - (каждый компилятор может ограничивать выделение памяти)
-4.потребление памяти операционной системы(может быть меньше выделена для связного списка)
+public:
+    Boeing747(const string& rocketMod, const string& airplaneMod, const string& jetMod, const string& boeingMod)
+        : JetPlane(rocketMod, airplaneMod, jetMod), boeingMod(boeingMod) {}
 
+    void carryPassengers() 
+    {
+        cout << "Boeing747 is JetPlane !" << endl;
+    }
 
-*/
+    void setBoeingMod(const string& mod) 
+    {
+        boeingMod = mod;
+    }
+
+    string getBoeingModel() const 
+    {
+        return boeingMod;
+    }
+};
+
